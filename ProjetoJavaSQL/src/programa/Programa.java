@@ -5,9 +5,10 @@ import dbos.*;
 public class Programa {
     public static void main(String[] args) throws Exception
     {
-        //Alunos.incluir(new Aluno(2,"David","david@gmaisl.com"));
-        System.out.println(Alunos.frenquenciaAlunos());//
-       
-        //System.out.println(Materias.showMaterias());
+        //Alunos.incluir(new Aluno(19372,"Lucas","lucas@gmail.com"));
+        //System.out.println(Alunos.showAlunos());//
+        //Materias.incluir(new Materia(2,"Desenvolvimento para Internet 2"));
+        //Fezs.incluir(new Fez(19372,2,9.0f,65));
+        System.out.println(Alunos.alunosAcimaDe(5));
     }
 }

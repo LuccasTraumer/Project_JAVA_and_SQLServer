@@ -27,6 +27,7 @@ public final class Materias {
 	
 	public static boolean existe(int codigo) throws Exception
 	{
+            
 		boolean retorno = false;
 		if(codigo <= 0)
 			throw new Exception("Codigo Invalido para Busc�!");
@@ -132,6 +133,36 @@ public final class Materias {
             }catch(SQLException erro)
             {
                 throw new Exception("Erro ao Visualizar as Materias!");
+            }
+            return ret;
+        }
+        public static String materiasSemReprovacao() throws Exception
+        {
+            String ret = "";
+            try{
+                String sql = "materiasSemReprovacao_sp";
+                BDSQLServer.COMANDO.prepareStatement(sql);
+                
+                MeuResultSet resultado = (MeuResultSet) BDSQLServer.COMANDO.executeQuery();
+                while(resultado.next())
+                    ret += "Nome Materia: "+ resultado.getString("nome") + ", Media: " + resultado.getFloat("Media")+"\n";
+            }catch(SQLException erro)
+            {
+                throw new Exception("Não Possivel Visualizar!");
+            }
+            return ret;
+        }
+        public static String mediaCrescenteAlunos() throws Exception
+        {
+            String ret = "";
+            try{
+                String sql = "mediaCrescenteAlunos_sp";
+                BDSQLServer.COMANDO.prepareStatement(sql);
+                MeuResultSet resultado = (MeuResultSet) BDSQLServer.COMANDO.executeQuery();
+                while(resultado.next())
+                    ret += "Nome Materia: "+ resultado.getString("nome") + ", Media Alunos: "+ resultado.getInt("MediaAlunos")+"\n";
+            }catch(SQLException erro){
+            throw new Exception("Não Possivel Visualizar!");
             }
             return ret;
         }

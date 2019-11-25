@@ -26,7 +26,7 @@ public class Aluno implements Cloneable{
 	}
 	public void setRa(int ra) throws Exception
 	{
-		if(ra <= 0)
+		if(ra <= 9999)
 			throw new Exception("RA invalido!");
 		
 		this.ra = ra;
@@ -35,9 +35,27 @@ public class Aluno implements Cloneable{
 	{
 		if(nome == null || nome.equals(""))
 			throw new Exception("Nome Invalido!");
+                if(temNumero(nome))
+                   throw new Exception("Existe um Numero no seu Nome!"); 
 		
 		this.nome = nome;
 	}
+        private boolean temNumero(String nome)
+        {
+            boolean retorno = false;
+            int valor;
+            for(int i=0; i < nome.length();i++)
+            {
+                try{
+                valor = Integer.parseInt(nome.charAt(i)+"");
+                if(valor == new Integer(valor))
+                    retorno = true;
+                }catch(Exception erro)
+                {}
+            }
+            
+            return retorno;
+        }
 	public void setEmail(String email) throws Exception
 	{
 		if(email == null || email.equals(""))

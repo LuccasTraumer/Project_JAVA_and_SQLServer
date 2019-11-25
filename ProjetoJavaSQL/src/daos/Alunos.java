@@ -89,7 +89,7 @@ public final class Alunos {
                 throw new Exception("RA invalido!");
             try{
                 String sql;
-                sql = "excAlu_sp ?";
+                sql = "exclusaoAluno_sp ?";
                 BDSQLServer.COMANDO.prepareStatement(sql);
                 BDSQLServer.COMANDO.setInt(1, ra);
                 
@@ -103,13 +103,12 @@ public final class Alunos {
 	public static String showAlunos() throws Exception // View
         {
             String ret = "";
-            MeuResultSet resultado;
             try{
                 String sql = "SELECT * FROM ALUNOS_VW";
                 BDSQLServer.COMANDO.prepareStatement(sql);
-                resultado = (MeuResultSet)BDSQLServer.COMANDO.executeQuery();
+                MeuResultSet resultado = (MeuResultSet)BDSQLServer.COMANDO.executeQuery();
                 while(resultado.next())
-                    ret += resultado.getString("NOME") + ", ";
+                    ret += "RA: "+resultado.getInt("RA") +", Nome: "+resultado.getString("NOME")+"\n";
             }catch(SQLException erro)
             {
                 throw new Exception("Erro ao Visualizar a Tabela");
@@ -126,7 +125,7 @@ public final class Alunos {
                 
                 MeuResultSet resultado = (MeuResultSet)BDSQLServer.COMANDO.executeQuery();
                 while(resultado.next())
-                    ret += "Nome: "+resultado.getString("NOME") + " Media: "+ resultado.getString("MEDIA");
+                    ret += "Nome: "+resultado.getString("NOME") + ", Media: "+ resultado.getString("MEDIA");
                 
             }catch(SQLException erro)
             {
@@ -152,7 +151,7 @@ public final class Alunos {
                 BDSQLServer.COMANDO.prepareStatement(sql);
                 MeuResultSet resultado = (MeuResultSet) BDSQLServer.COMANDO.executeQuery();
                 while(resultado.next())
-                    ret += "Aluno: "+resultado.getString("NomeAluno") +" Materia: " + resultado.getString("NomeMateria")+" Frequencia: "+ resultado.getString("FREQ")+"%";
+                    ret += "Aluno: "+resultado.getString("NomeAluno") +", Materia: " + resultado.getString("NomeMateria")+", Frequencia: "+ resultado.getString("FREQ")+"%"+"\n";
                 
             }catch(SQLException erro)
             {
@@ -169,11 +168,65 @@ public final class Alunos {
                 BDSQLServer.COMANDO.prepareStatement(sql);
                 MeuResultSet resultado = (MeuResultSet)BDSQLServer.COMANDO.executeQuery();
                 while(resultado.next())
-                    ret += "Aluno: "+ resultado.getString("NOME") + " Frequencia: "+resultado.getString("FREQ");
+                    ret += "Aluno: "+ resultado.getString("NOME") + ", Frequencia: "+resultado.getString("FREQ");
             }catch(SQLException erro)
             {
                 throw new Exception("Erro ao Visualizar Tabela!");
             }
             return ret;
         }
+        
+        public static String alunosFrequencia() throws Exception
+        {
+            String ret= "";
+        
+            try{
+            String sql = "frequenciaAlunos_sp";
+            BDSQLServer.COMANDO.prepareStatement(sql);
+            MeuResultSet resultado = (MeuResultSet) BDSQLServer.COMANDO.executeQuery();
+            while(resultado.next())
+                ret += "Aluno: "+ resultado.getString("NOME")+", Frequencia: "+resultado.getInt("Frequencia")+"\n ";
+        }
+            catch(SQLException erro)
+        {
+            throw new Exception("Erro ao Visualizar!");
+            
+        }
+            return ret;
+        }
+        public static String mediaAlunosPorMateria() throws Exception
+        {
+            String ret = "";
+            try{
+                String sql = "mediaAlunosPorMateria_sp";
+                BDSQLServer.COMANDO.prepareStatement(sql);
+                MeuResultSet resultado = (MeuResultSet)BDSQLServer.COMANDO.executeQuery();
+                while(resultado.next())
+                    ret += "Nome Aluno: "+ resultado.getString("NomeAluno") + ", Nome Materia: "+resultado.getString("NomeMateria")+ ", Media: "+resultado.getFloat("Media")+"\n";
+            }catch(SQLException erro)
+            {
+                throw new Exception("Erro ao Visualizar!");
+            }
+            return ret;
+        }
+        
+        public static String alunosAcimaDe(float nota) throws Exception
+        {
+            if(nota < 0 || nota > 10)
+                throw new Exception("Nota Invalida!");
+            String ret = "";
+            try{
+                String sql = "notaAcima_sp ?";
+                BDSQLServer.COMANDO.prepareStatement(sql);
+                BDSQLServer.COMANDO.setFloat(1, nota);
+                MeuResultSet resultado = (MeuResultSet) BDSQLServer.COMANDO.executeQuery();
+                //while(resultado.next())
+                ret+= resultado; 
+            }catch(SQLException erro)
+            {
+                throw new Exception("Erro ao Visualizar!");
+            }
+            return ret;
+        }
+        
 }

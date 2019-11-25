@@ -6,28 +6,45 @@ public class Fez implements Cloneable{
 	private float nota;
 	private int frequencia;
 	
+        public Fez(int ra, int codigoMateria, float nota,int frequencia) throws Exception
+        {
+            this.setRa(ra);
+            this.setCodigoMateria(codigoMateria);
+            this.setNota(nota);
+            this.setFrequencia(frequencia);
+        }
 	public int getRa() {
 		return ra;
 	}
-	public void setRa(int ra) {
+	public void setRa(int ra) 
+        {
 		this.ra = ra;
 	}
 	public int getCodigoMateria() {
 		return codigoMateria;
 	}
-	public void setCodigoMateria(int codigoMateria) {
+	public void setCodigoMateria(int codigoMateria)  throws Exception
+        {
+            if(codigoMateria < 0 )
+                throw new Exception("Codigo Invalido!");
 		this.codigoMateria = codigoMateria;
 	}
 	public float getNota() {
 		return nota;
 	}
-	public void setNota(float nota) {
+	public void setNota(float nota) throws Exception
+        {
+            if(nota < 0 || nota > 10 )
+                throw new Exception("Nota Invalida!");
 		this.nota = nota;
 	}
 	public int getFrequencia() {
 		return frequencia;
 	}
-	public void setFrequencia(int frequencia) {
+	public void setFrequencia(int frequencia) throws Exception 
+        {
+            if(frequencia < 0 || frequencia > 100 )
+                throw new Exception("Frequencia Invalida!");
 		this.frequencia = frequencia;
 	}
 	
