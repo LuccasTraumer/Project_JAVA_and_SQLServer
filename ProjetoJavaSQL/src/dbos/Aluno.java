@@ -114,7 +114,7 @@ public class Aluno implements Cloneable{
 	
 	public Object clone()
 	{
-		Object ret = null;
+		Aluno ret = null;
 		try {
 			ret = new Aluno(this);
 		}catch(Exception erro) {}
